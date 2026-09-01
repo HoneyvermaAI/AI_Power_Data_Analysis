@@ -1,0 +1,39 @@
+# Environment
+
+.env
+.venv/
+venv/
+
+# Python
+
+**pycache**/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE
+
+.vscode/
+.idea/
+
+# OS
+
+.DS_Store
+Thumbs.db
+
+# Logs
+
+*.log
+
+# Temporary files
+
+*.tmp
+
+# Jupyter Notebook
+
+.ipynb_checkpoints/
+
+# Generated files
+
+uploads/
+output/

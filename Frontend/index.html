@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DataPilot | AI Data Analyst</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span>✦</span>
+            DataPilot
+        </div>
+
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#insights">Insights</a>
+            <a href="#visualizations">Charts</a>
+            <a href="#ask">Ask AI</a>
+        </nav>
+
+    </header>
+
+    <main id="dashboard">
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                <span></span>
+                AI-Powered Data Analysis
+            </div>
+
+            <h1>
+                Turn Your Data Into
+                <span>Intelligent Insights.</span>
+            </h1>
+
+            <p>
+                Upload your CSV dataset and let AI discover
+                patterns, statistics and useful insights for you.
+            </p>
+
+            <div class="upload-card" id="uploadArea">
+
+                <div class="upload-icon">
+                    ↑
+                </div>
+
+                <h3>Drop your CSV here</h3>
+
+                <p>
+                    or choose a file from your computer
+                </p>
+
+                <label
+                    for="fileInput"
+                    class="upload-button"
+                >
+                    Choose CSV File
+                </label>
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept=".csv"
+                    hidden
+                >
+
+                <div
+                    id="fileName"
+                    class="file-name"
+                ></div>
+
+                <button
+                    id="analyzeButton"
+                    class="analyze-button"
+                >
+                    Analyze Dataset
+                    <span>→</span>
+                </button>
+
+            </div>
+
+            <div
+                id="loading"
+                class="loading"
+            >
+                <div class="loader"></div>
+
+                <span>
+                    Analyzing your dataset...
+                </span>
+            </div>
+
+            <div
+                id="errorMessage"
+                class="error-message"
+            ></div>
+
+        </section>
+
+
+        <section
+            id="overview"
+            class="dashboard-section hidden"
+        >
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">
+                        OVERVIEW
+                    </span>
+
+                    <h2>
+                        Dataset Overview
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ↗
+                    </div>
+
+                    <span>
+                        Rows
+                    </span>
+
+                    <strong id="rows">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ▦
+                    </div>
+
+                    <span>
+                        Columns
+                    </span>
+
+                    <strong id="columns">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        !
+                    </div>
+
+                    <span>
+                        Missing Values
+                    </span>
+
+                    <strong id="missing">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ↻
+                    </div>
+
+                    <span>
+                        Duplicates
+                    </span>
+
+                    <strong id="duplicates">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="columns-card">
+
+                <div>
+
+                    <span class="small-label">
+                        NUMERIC COLUMNS
+                    </span>
+
+                    <div
+                        id="numericColumns"
+                        class="tags"
+                    ></div>
+
+                </div>
+
+
+                <div>
+
+                    <span class="small-label">
+                        CATEGORICAL COLUMNS
+                    </span>
+
+                    <div
+                        id="categoricalColumns"
+                        class="tags"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="insights"
+            class="dashboard-section hidden"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        AI ANALYSIS
+                    </span>
+
+                    <h2>
+                        Intelligent Insights
+                    </h2>
+
+                </div>
+
+                <div class="ai-badge">
+                    ✦ Gemini AI
+                </div>
+
+            </div>
+
+
+            <div class="insights-card">
+
+                <div id="aiInsights"></div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="visualizations"
+            class="dashboard-section hidden"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        DATA VISUALIZATION
+                    </span>
+
+                    <h2>
+                        Explore Your Data
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="charts-grid">
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <span class="small-label">
+                                TREND
+                            </span>
+
+                            <h3>
+                                Numeric Data
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-wrapper">
+
+                        <canvas id="lineChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <span class="small-label">
+                                DISTRIBUTION
+                            </span>
+
+                            <h3>
+                                Category Distribution
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-wrapper">
+
+                        <canvas id="barChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <span class="small-label">
+                                BREAKDOWN
+                            </span>
+
+                            <h3>
+                                Category Share
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-wrapper doughnut-wrapper">
+
+                        <canvas id="doughnutChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <span class="small-label">
+                                CORRELATION
+                            </span>
+
+                            <h3>
+                                Feature Relationships
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        id="correlationContainer"
+                        class="correlation-grid"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="preview"
+            class="dashboard-section hidden"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        DATA
+                    </span>
+
+                    <h2>
+                        Dataset Preview
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead id="tableHead"></thead>
+
+                        <tbody id="tableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="ask"
+            class="dashboard-section hidden"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        AI ASSISTANT
+                    </span>
+
+                    <h2>
+                        Ask Your Data
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="ask-card">
+
+                <p>
+                    Ask questions about your uploaded dataset
+                </p>
+
+                <div class="question-box">
+
+                    <input
+                        type="text"
+                        id="questionInput"
+                        placeholder="e.g. What is the average sales?"
+                    >
+
+                    <button id="askButton">
+
+                        Ask AI
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="questionLoading"
+                    class="question-loading"
+                >
+
+                    <div class="loader"></div>
+
+                    Thinking...
+
+                </div>
+
+
+                <div
+                    id="answerBox"
+                    class="answer-box hidden"
+                ></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Built with FastAPI · Pandas · Gemini AI
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
