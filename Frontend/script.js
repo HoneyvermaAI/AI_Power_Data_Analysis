@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://ai-power-data-analysis-3.onrender.com";
 
 const fileInput = document.getElementById("fileInput");
 const uploadArea = document.getElementById("uploadArea");
